@@ -1,0 +1,113 @@
+SELECT * FROM BOOKS;
+
+CREATE DATABASE bookstore;
+USE bookstore;
+
+CREATE TABLE books (
+    book_id INT PRIMARY KEY AUTO_INCREMENT, -- Unique identifier for each book
+    title VARCHAR(255) NOT NULL,            -- Name of the book (cannot be empty)
+    author_last_name VARCHAR(100) NOT NULL, -- Author's last name for easy sorting
+    release_year INT,                       -- Year the book was published
+    genre VARCHAR(50),                      -- Category of the book
+    price DECIMAL(5, 2) NOT NULL,           -- Retail price (e.g., 29.99)
+    stock_count INT DEFAULT 0               -- How many copies are on hand
+);
+
+
+INSERT INTO books (title, author_last_name, release_year, genre, price, stock_count) VALUES
+('The Secret Garden', 'Burnett', 1911, 'Classic', 12.50, 15),
+('A History of Time', 'Hawking', 1988, 'Science', 25.00, 22),
+('The Andromeda Strain', 'Crichton', 1969, 'Thriller', 14.99, 10),
+('Dune', 'Herbert', 1965, 'Sci-Fi', 18.75, 5),
+('Pride and Prejudice', 'Austen', 1813, 'Classic', 10.99, 30),
+('Cosmos', 'Sagan', 1980, 'Science', 21.50, 18),
+('Jurassic Park', 'Crichton', 1990, 'Thriller', 16.50, 12),
+('Foundation', 'Asimov', 1951, 'Sci-Fi', 17.00, 8),
+('1984', 'Orwell', 1949, 'Classic', 9.99, 25),
+('The Martian', 'Weir', 2011, 'Sci-Fi', 15.99, 14),
+('Sapiens', 'Harari', 2011, 'History', 28.00, 16); -- 11th record
+
+SELECT title, price
+FROM books
+WHERE genre = 'Sci-Fi';
+
+
+SELECT title, author_last_name, release_year
+FROM books
+WHERE release_year < 1950;
+
+
+SELECT title, genre, price
+FROM books
+WHERE genre = 'Classic' OR price > 20.00;
+
+
+SELECT title, stock_count
+FROM books
+WHERE genre = 'Thriller' AND stock_count < 15;
+
+
+SELECT title, author_last_name
+FROM books
+WHERE author_last_name LIKE 'H%';
+
+
+
+
+
+SELECT title, price
+FROM books
+ORDER BY price DESC;
+
+
+SELECT title, author_last_name
+FROM books
+ORDER BY author_last_name ASC;
+
+
+SELECT title, release_year
+FROM books
+ORDER BY release_year ASC, title ASC;
+
+
+
+SELECT title, price
+FROM books
+ORDER BY price DESC
+LIMIT 3;
+
+
+SELECT title
+FROM books
+LIMIT 5 OFFSET 5; 
+
+
+UPDATE books
+SET price = price * 1.1
+WHERE genre = 'Classic';
+
+
+SELECT title, price FROM books WHERE genre = 'Classic';
+
+DELETE FROM books
+WHERE release_year < 1900;
+
+
+
+SELECT title, release_year FROM books; 
+
+
+
+
+SELECT COUNT(*) AS total_sci_fi_books
+FROM books
+WHERE genre = 'Sci-Fi';
+
+SELECT
+    MAX(price) AS max_price,
+    MIN(price) AS min_price,
+    AVG(price) AS average_price
+FROM books;
+
+
+
